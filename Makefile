@@ -1,11 +1,8 @@
 SRCS_DIR = ./srcs/
-SRCS =	ft_linetest.c\
-		ft_getmap.c\
+SRCS =	ft_getmap.c\
 		ft_mapchek.c\
 		ft_split2.c\
-		ft_solong.c\
-		ft_test.c\
-		ft_sosoolong.c\
+		solong.c\
 
 OBJS = ${addprefix ${SRCS_DIR}, ${SRCS:.c=.o}}
 

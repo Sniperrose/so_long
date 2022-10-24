@@ -1,4 +1,16 @@
-# include "../include/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/24 18:03:59 by galtange          #+#    #+#             */
+/*   Updated: 2022/10/24 18:04:46 by galtange         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/so_long.h"
 
 char	*ft_substr2(char const *s, unsigned int start, size_t len)
 {
@@ -25,7 +37,7 @@ size_t	ft_count(const char *all, char sep)
 {
 	int		i;
 	size_t	line;
-	
+
 	if (!all)
 		return (0);
 	i = 0;
@@ -74,7 +86,7 @@ void	ft_free(char **str, size_t line)
 
 void	ft_split2(char **result, char const *all, char sep, size_t size)
 {
-	int	i;
+	int		i;
 	size_t	line;
 
 	if (!all || !size)

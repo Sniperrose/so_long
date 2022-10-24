@@ -18,14 +18,18 @@ typedef struct s_mlx
     // void    *image;
     int     x;
     int     y;
-
+    //pos player
+    int     *p_x;
+    int     *p_y;
+    char    **map;
+    int     cntr;
 }              t_mlx;
 
 typedef struct s_img
 {
     void    *image;
-    int     *widht;
-    int     *height;
+    int     *w;
+    int     *h;
 
 }              t_img;
 
@@ -41,7 +45,16 @@ char	*get_next_line(int fd);
 char    **ft_readmap(int fd);
 int ft_error(char *str);
 size_t	ft_splitsize(char **str);
-int ft_validmap(char **map);
+
+void    *solong(t_mlx map);
+
+void    ft_bzero(int *nbr, int size);
+int ft_mapcheck(char **map);
+int ft_wallcheck(char **map, int i, size_t x);
+int ft_comptcheck(char **map, int i, int j);
+
+
+
 int ft_solong(char **map);
 void    ft_test();
 void    *ft_image();
