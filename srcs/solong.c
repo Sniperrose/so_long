@@ -15,7 +15,7 @@ void    *solong(t_game mlx)
 
     t_image img;
     mlx.ptr = mlx_init();
-    mlx.win = mlx_new_window(mlx.ptr, 1000, 1000, "so_long");
+    mlx.win = mlx_new_window(mlx.ptr, 1000, 1000, "so_long_test");
 
     test.img = mlx_xpm_file_to_image(mlx.ptr, "imgs/seoho.xpm", test.widht, test.heigth);
     mlx_put_image_to_window(mlx.ptr, mlx.win, test.img, 0, 0);
