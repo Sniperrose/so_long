@@ -22,7 +22,7 @@ int	ft_end_error(int fd)
 int	main(int ac, char **av)
 {
 	int		fd;
-	t_mlx	mlx;
+	t_game	mlx;
 
 	if (ac == 1)
 	{
@@ -36,7 +36,6 @@ int	main(int ac, char **av)
 	if (!mlx.map)
 		return (ft_end_error(fd));
 	solong(mlx);
-	
 	ft_free(mlx.map, ft_splitsize(mlx.map));
 	close (fd);
 	return (0);

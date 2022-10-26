@@ -11,27 +11,26 @@
 # include <X11/X.h>
 #include <X11/keysym.h>
 
-typedef struct s_mlx
+typedef struct s_game
 {
-    void    *mlx;
+    void    *ptr;
     void    *win;
-    // void    *image;
-    int     x;
-    int     y;
-    //pos player
-    int     *p_x;
-    int     *p_y;
     char    **map;
-    int     cntr;
-}              t_mlx;
+    void    *win2;
 
-typedef struct s_img
+    int     win_x;
+    int     win_y;
+    int     collectible;
+    int     player_x;
+    int     player_y;
+}              t_game;
+
+typedef struct s_image
 {
-    void    *image;
-    int     *w;
-    int     *h;
-
-}              t_img;
+    void    *img;
+    int     *widht;
+    int     *heigth;
+}               t_image;
 
 int main(int ac, char **av);
 char	*ft_strdup(const char *s);
@@ -46,7 +45,9 @@ char    **ft_readmap(int fd);
 int ft_error(char *str);
 size_t	ft_splitsize(char **str);
 
-void    *solong(t_mlx map);
+void    *ft_image();
+
+void    *solong(t_game mlx);
 
 void    ft_bzero(int *nbr, int size);
 int ft_mapcheck(char **map);
@@ -55,9 +56,9 @@ int ft_comptcheck(char **map, int i, int j);
 
 
 
-int ft_solong(char **map);
-void    ft_test();
-void    *ft_image();
-void    *ft_sosoolong(char **map);
+// int ft_solong(char **map);
+// void    ft_test();
+// void    *ft_image();
+// void    *ft_sosoolong(char **map);
 
 #endif
