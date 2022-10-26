@@ -16,20 +16,29 @@ typedef struct s_game
     void    *ptr;
     void    *win;
     char    **map;
-    void    *win2;
 
-    int     win_x;
-    int     win_y;
+    int     x;
+    int     y;
     int     collectible;
     int     player_x;
     int     player_y;
 }              t_game;
 
+typedef struct s_vector
+{
+    int x;
+    int y;
+}              t_vector;
+
+
 typedef struct s_image
 {
-    void    *img;
-    int     *widht;
-    int     *heigth;
+    void        *pointer;
+    t_vector    size;
+    char        *pixels;
+    int         bits_pp;
+    int         line_size;
+    int         endian;
 }               t_image;
 
 int main(int ac, char **av);
@@ -48,6 +57,7 @@ size_t	ft_splitsize(char **str);
 void    *ft_image();
 
 void    *solong(t_game mlx);
+void    *ft_drawgame(t_game game, char **map);
 
 void    ft_bzero(int *nbr, int size);
 int ft_mapcheck(char **map);
