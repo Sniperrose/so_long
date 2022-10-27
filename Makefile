@@ -3,6 +3,8 @@ SRCS =	ft_getmap.c\
 		ft_mapchek.c\
 		ft_split2.c\
 		solong.c\
+		ft_getimages.c\
+		ft_moves.c\
 
 OBJS = ${addprefix ${SRCS_DIR}, ${SRCS:.c=.o}}
 

@@ -30,7 +30,6 @@ typedef struct s_vector
     int y;
 }              t_vector;
 
-
 typedef struct s_image
 {
     void        *pointer;
@@ -40,6 +39,23 @@ typedef struct s_image
     int         line_size;
     int         endian;
 }               t_image;
+
+typedef struct  s_player
+{
+    t_image     img;
+    t_image     nul;
+    t_vector    pos_current;
+    t_vector    pos_new;
+}               t_player;
+
+typedef struct s_icon
+{
+    t_image wall;
+    t_image space;
+    t_image coll;
+    t_image exit;
+    t_image player;
+}              t_icon;
 
 int main(int ac, char **av);
 char	*ft_strdup(const char *s);
@@ -53,11 +69,18 @@ char	*get_next_line(int fd);
 char    **ft_readmap(int fd);
 int ft_error(char *str);
 size_t	ft_splitsize(char **str);
+t_image	ft_new_sprite(void *ptr, char *path);
+t_vector get_pos_player(char **map);
 
-void    *ft_image();
+int can_i_move_right(t_game *game, int x, int y);
+int can_i_move_left(t_game *game, int x, int y);
+int can_i_move_up(t_game *game, int x, int y);
+int can_i_move_down(t_game *game, int x, int y);
 
 void    *solong(t_game mlx);
 void    *ft_drawgame(t_game game, char **map);
+void    *display_game(t_game    *game);
+
 
 void    ft_bzero(int *nbr, int size);
 int ft_mapcheck(char **map);

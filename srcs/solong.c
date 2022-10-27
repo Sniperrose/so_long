@@ -1,91 +1,97 @@
 #include "../include/so_long.h"
-#include <X11/keysym.h>
 
-// void    *ft_drawgame(t_game game, char **map)
+// void    *handle_move(int key, t_game *game)
 // {
-//     int i = 0;
-//     int j;
-
-//     game.x = 0;
-//     game.y = 0;
-//     t_image   img;
-//     while(map[i])
-//     {
-//         j = 0;
-//         while(map[i][j])
-//         {
-//             if (map[i][j] == '1')
-//             {
-//                 img.pointer = mlx_xpm_file_to_image(game.ptr, "srcs/wall.xpm", img., img.heigth);
-//                 mlx_put_image_to_window(game.ptr, game.win, img.pointer, game.x, game.y);
-//             }
-//             // else if (map[i][j] == '0')
-//             //     img.pointer = mlx_xpm_file_to_image(game.ptr, "imgs/grass64.xpm", img.widht, img.heigth);
-//             // else if (map[i][j] == 'E')
-//             //     img.pointer = mlx_xpm_file_to_image(game.ptr, "srcs/exit.xpm", img.widht, img.heigth);
-//             // else if (map[i][j] == 'C')
-//             //     img.pointer = mlx_xpm_file_to_image(game.ptr, "srcs/col.xpm", img.widht, img.heigth);
-//             // else if (map[i][j] == 'P')
-//             //     img.pointer = mlx_xpm_file_to_image(game.ptr, "imgs/bunny64.xpm", img.widht, img.heigth);
-//             mlx_put_image_to_window(game.ptr, game.win, img.pointer, game.x, game.y);
-//             game.x += 64;
-//             j++;
-//         }
-//         game.x = 0;
-//         game.y += 64;
-//         i++;
-//     }
-//     return (game.ptr);
+//     if (key == XK_d || key == XK_D)
+//         printf ("D\n");
+//     return 
 // }
 
-t_image ft_new_sprite(void *ptr, char *path)
+int handle_exit(int keysym, t_game *game)
 {
-    t_image img;
-
-    img.pointer = mlx_xpm_file_to_image(ptr, path, &img.size.x, &img.size.y);
-    // img.pixels = mlx_get_data_addr(img.refe)
-
-    return (img);
+    if (keysym == XK_Escape)
+        mlx_destroy_window(game->ptr, game->win);
+    return (0);
 }
 
-void    *test(void *ptr, void *win)
+
+void    ft_printmap(char **map)
 {
-    t_image new;
+    int i = 0;
 
-    new = ft_new_sprite(ptr, "imgs/bunny64.xpm");
-    mlx_put_image_to_window(ptr, win, new.pointer, 0, 0);
-
-    return (ptr);
-}
-void    *test_bg(t_game game)
-{
-    t_vector m;
-    t_vector size;
-    t_image wall;
-
-    m.x = 0;
-    size.x = 0;
-    size.y = 0;
-    while(game.map[m.x] != 0)
+    while (map[i])
     {
-        m.y = 0;
-        while (game.map[m.x][m.y] != '\0')
-        {
-            if (game.map[m.x][m.y] == '1')
-                wall = ft_new_sprite(game.ptr, "imgs/1.xpm");
-            else
-                wall = ft_new_sprite(game.ptr, "imgs/0.xpm");
-            mlx_put_image_to_window(game.ptr, game.win, wall.pointer, size.x, size.y);
-            m.y++;
-            size.x += 64;
-        }
-        size.x = 0;
-        size.y += 64;
-        m.x++;
+        printf("%s\n", map[i]);
+        i++;  
     }
-    return (game.ptr);
+    return ;
 }
 
+void    ft_do_move(t_game *game, t_vector pos, char dir)
+{
+    game->map[pos.y][pos.x] = '0';
+    if (dir == 'D')
+    {
+        game->map[pos.y][pos.x + 1] = 'P';
+        printf("right\n");
+    }
+    else if (dir == 'A')
+    {
+        game->map[pos.y][pos.x - 1] = 'P';
+        printf("left\n");
+    }
+    else if (dir == 'W')
+    {
+        game->map[pos.y - 1][pos.x] = 'P';
+        printf("up\n");
+    }
+    else if (dir == 'S')
+    {
+        game->map[pos.y + 1][pos.x] = 'P';
+        printf("down\n");
+    }
+    else
+        return ;
+}
+
+
+
+int	handle_keypress(int keysym, t_game *game)
+{
+    t_vector pos;
+
+    pos = get_pos_player(game->map);
+    if (keysym == XK_d || keysym == XK_D)
+    {
+        if (can_i_move_right(game, pos.x, pos.y))
+            ft_do_move(game, pos, 'D');
+        else if (can_i_move_right(game, pos.x, pos.y) == 2)
+            game->map[pos.x][pos.y] = '0';
+    }
+    else    if (keysym == XK_W || keysym == XK_w)
+    {
+        if (can_i_move_up(game, pos.x, pos.y))
+            ft_do_move(game, pos, 'W');
+        else if (can_i_move_up(game, pos.x, pos.y) == 2)
+            game->map[pos.x][pos.y] = '0';
+    }
+    else    if (keysym == XK_A || keysym == XK_a)
+    {
+        if (can_i_move_left(game, pos.x, pos.y))
+            ft_do_move(game, pos, 'A');
+        if (can_i_move_left(game, pos.x, pos.y) == 2)
+            game->map[pos.x][pos.y] = 'C';
+    }
+    else    if (keysym == XK_S || keysym == XK_s)
+    {
+        if (can_i_move_down(game, pos.x, pos.y))
+            ft_do_move(game, pos, 'S');
+        if (can_i_move_down(game, pos.x, pos.y) == 2)
+            game->map[pos.x][pos.y] = '0';
+    }
+    display_game(game);
+	return (0);
+}
 void    *solong(t_game game)
 {
     game.collectible = ft_mapcheck(game.map);
@@ -103,10 +109,9 @@ void    *solong(t_game game)
     game.ptr = mlx_init();
     game.win = mlx_new_window(game.ptr, game.x, game.y, "so_long_test");
 
-
-    test(game.ptr, game.win);
-    test_bg(game);
-    //   test(game.ptr, game.win);
+    display_game(&game);
+    mlx_hook(game.win, KeyPress, KeyPressMask, &handle_keypress, &game);
+    mlx_key_hook(game.win, &handle_exit, &game);
     mlx_loop(game.ptr);
     return (game.ptr);
 }
