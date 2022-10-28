@@ -34,15 +34,20 @@ t_image	ft_new_sprite(void *ptr, char *path)
 	return (img);
 }
 
-t_icon	ft_readimgs(void *ptr)
+t_icon	ft_readimgs(void *ptr, int i)
 {
 	t_icon	show;
 
 	show.coll = ft_new_sprite(ptr, "imgs/C.xpm");
 	show.exit = ft_new_sprite(ptr, "imgs/E.xpm");
-	show.player = ft_new_sprite(ptr, "imgs/P.xpm");
 	show.space = ft_new_sprite(ptr, "imgs/0.xpm");
 	show.wall = ft_new_sprite(ptr, "imgs/1.xpm");
+	if (i == 0)
+		show.player = ft_new_sprite(ptr, "imgs/P.xpm");
+	else if (i == 1)
+		show.player = ft_new_sprite(ptr, "imgs/P_L.xpm");
+	else if (i == 2)
+		show.player = ft_new_sprite(ptr, "imgs/1.xpm");
 	return (show);
 }
 
@@ -54,6 +59,8 @@ void	*put_img(t_icon show, char c)
 		return (show.coll.pointer);
 	else if (c == 'P')
 		return (show.player.pointer);
+	else if (c == 'D')
+		return (show.player.pointer);
 	else if (c == 'E')
 		return (show.exit.pointer);
 	else if (c == '0')
@@ -61,14 +68,14 @@ void	*put_img(t_icon show, char c)
 	return (NULL);
 }
 
-void	*display_game(t_game *game)
+void	*display_game(t_game *game, int type)
 {
 	t_icon		show;
 	t_vector	m;
 	t_vector	d;
 	char		c;
 
-	show = ft_readimgs(game->ptr);
+	show = ft_readimgs(game->ptr, type);
 	m.x = 0;
 	d.x = 0;
 	d.y = 0;
@@ -80,11 +87,11 @@ void	*display_game(t_game *game)
 			c = game->map[m.x][m.y];
 			mlx_put_image_to_window(game->ptr, game->win,
 				put_img(show, c), d.x, d.y);
-			d.x += 64;
+			d.x += res;
 			m.y++;
 		}
 		d.x = 0;
-		d.y += 64;
+		d.y += res;
 		m.x++;
 	}
 	return (game->ptr);

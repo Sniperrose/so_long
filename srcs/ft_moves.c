@@ -19,79 +19,131 @@ t_vector get_pos_player(char **map)
     return (pos);
 }
 
-int can_i_move_right(t_game *game, int x, int y)
+void    ft_do_move(t_game *game, t_vector pos, char dir)
 {
-    if (game->map[y][x + 1] == '1')
-        return (0);
-    else if (game->map[y][x + 1] == 'C')
+    game->map[pos.y][pos.x] = '0';
+    if (dir == 'D')
     {
-        game->collectible -= 1;
-        return (1); 
+        game->map[pos.y][pos.x + 1] = 'P';
+        printf("right\n");
     }
-    else if (game->map[y][x + 1] == 'E')
+    else if (dir == 'A')
     {
-        if (game->collectible == 0)
-            return (2);
-        else
-            return (0);
+        game->map[pos.y][pos.x - 1] = 'P';
+        printf("left\n");
     }
-    return (1);
+    else if (dir == 'W')
+    {
+        game->map[pos.y - 1][pos.x] = 'P';
+        printf("up\n");
+    }
+    else if (dir == 'S')
+    {
+        game->map[pos.y + 1][pos.x] = 'P';
+        printf("down\n");
+    }
 }
 
-
-int can_i_move_left(t_game *game, int x, int y)
+int can_i_move_left(t_game *game, t_vector pos)
 {
-    if (game->map[y][x - 1] == '1')
-        return (0);
-    else if (game->map[y][x - 1] == 'C')
+    if (game->map[pos.y][pos.x - 1] == '0')
     {
-        game->collectible -= 1;
-        return (1); 
+        game->type = 1;
+        ft_do_move(game, pos, 'A');
+        return (1);
     }
-    else if (game->map[y][x - 1] == 'E')
+    else if (game->map[pos.y][pos.x - 1] == 'C')
+    {
+        game->type = 1;
+        game->collectible -= 1;
+        ft_do_move(game, pos, 'A');
+        return (1);
+    }
+    else if (game->map[pos.y][pos.x - 1] == 'E')
     {
         if (game->collectible == 0)
-            return (2);
-        else
-            return (0);
+        {
+            game->map[pos.y][pos.x] = '0';
+            return (-1);
+        }
     }
-    return (1);
+    return (0);
 }
 
-int can_i_move_up(t_game *game, int x, int y)
+int can_i_move_right(t_game *game, t_vector pos)
 {
-    if (game->map[y - 1][x] == '1')
-        return (0);
-    else if (game->map[y - 1][x] == 'C')
+    if (game->map[pos.y][pos.x + 1] == '0')
     {
-        game->collectible -= 1;
-        return (1); 
+        game->type = 0;
+        ft_do_move(game, pos, 'D');
+        return (1);
     }
-    else if (game->map[y - 1][x] == 'E')
+    else if (game->map[pos.y][pos.x + 1] == 'C')
+    {
+        game->type = 0;
+        game->collectible -= 1;
+        ft_do_move(game, pos, 'D');
+        return (1);
+    }
+    else if (game->map[pos.y][pos.x + 1] == 'E')
     {
         if (game->collectible == 0)
-            return (2);
-        else
-            return (0);
+        {
+            game->map[pos.y][pos.x] = '0';
+            return (-1);
+        }
     }
-    return (1);
+    return (0);
 }
 
-int can_i_move_down(t_game *game, int x, int y)
+int can_i_move_up(t_game *game, t_vector pos)
 {
-    if (game->map[y + 1][x] == '1')
-        return (0);
-    else if (game->map[y + 1][x] == 'C')
+    if (game->map[pos.y - 1][pos.x] == '0')
     {
-        game->collectible -= 1;
-        return (1); 
+        game->type = 1;
+        ft_do_move(game, pos, 'W');
+        return (1);
     }
-    else if (game->map[y + 1][x] == 'E')
+    else if (game->map[pos.y - 1][pos.x] == 'C')
+    {
+        game->type = 1;
+        game->collectible -= 1;
+        ft_do_move(game, pos, 'W');
+        return (1);
+    }
+    else if (game->map[pos.y - 1][pos.x] == 'E')
     {
         if (game->collectible == 0)
-            return (2);
-        else
-            return (0);
+        {
+            game->map[pos.y][pos.x] = '0';
+            return (-1);
+        }
     }
-    return (1);
+    return (0);
+}
+
+int can_i_move_down(t_game *game, t_vector pos)
+{
+    if (game->map[pos.y + 1][pos.x] == '0')
+    {
+        game->type = 1;
+        ft_do_move(game, pos, 'S');
+        return (1);
+    }
+    else if (game->map[pos.y + 1][pos.x] == 'C')
+    {
+        game->type = 1;
+        game->collectible -= 1;
+        ft_do_move(game, pos, 'S');
+        return (1);
+    }
+    else if (game->map[pos.y + 1][pos.x] == 'E')
+    {
+        if (game->collectible == 0)
+        {
+            game->map[pos.y][pos.x] = '0';
+            return (-1);
+        }
+    }
+    return (0);
 }

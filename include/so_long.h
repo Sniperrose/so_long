@@ -11,18 +11,7 @@
 # include <X11/X.h>
 #include <X11/keysym.h>
 
-typedef struct s_game
-{
-    void    *ptr;
-    void    *win;
-    char    **map;
-
-    int     x;
-    int     y;
-    int     collectible;
-    int     player_x;
-    int     player_y;
-}              t_game;
+#define res 64
 
 typedef struct s_vector
 {
@@ -40,14 +29,6 @@ typedef struct s_image
     int         endian;
 }               t_image;
 
-typedef struct  s_player
-{
-    t_image     img;
-    t_image     nul;
-    t_vector    pos_current;
-    t_vector    pos_new;
-}               t_player;
-
 typedef struct s_icon
 {
     t_image wall;
@@ -56,6 +37,17 @@ typedef struct s_icon
     t_image exit;
     t_image player;
 }              t_icon;
+
+typedef struct s_game
+{
+    void    *ptr;
+    void    *win;
+    char    **map;
+    int     x;
+    int     y;
+    int     collectible;
+    int     type;
+}              t_game;
 
 int main(int ac, char **av);
 char	*ft_strdup(const char *s);
@@ -69,17 +61,19 @@ char	*get_next_line(int fd);
 char    **ft_readmap(int fd);
 int ft_error(char *str);
 size_t	ft_splitsize(char **str);
+
 t_image	ft_new_sprite(void *ptr, char *path);
 t_vector get_pos_player(char **map);
 
-int can_i_move_right(t_game *game, int x, int y);
-int can_i_move_left(t_game *game, int x, int y);
-int can_i_move_up(t_game *game, int x, int y);
-int can_i_move_down(t_game *game, int x, int y);
+void    ft_do_move(t_game *game, t_vector pos, char dir);
+int can_i_move_right(t_game *game, t_vector pos);
+int can_i_move_left(t_game *game, t_vector pos);
+int can_i_move_up(t_game *game, t_vector pos);
+int can_i_move_down(t_game *game, t_vector pos);
 
 void    *solong(t_game mlx);
 void    *ft_drawgame(t_game game, char **map);
-void    *display_game(t_game    *game);
+void    *display_game(t_game    *game, int i);
 
 
 void    ft_bzero(int *nbr, int size);

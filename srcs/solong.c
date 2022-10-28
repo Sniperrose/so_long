@@ -1,12 +1,5 @@
 #include "../include/so_long.h"
 
-// void    *handle_move(int key, t_game *game)
-// {
-//     if (key == XK_d || key == XK_D)
-//         printf ("D\n");
-//     return 
-// }
-
 int handle_exit(int keysym, t_game *game)
 {
     if (keysym == XK_Escape)
@@ -14,47 +7,11 @@ int handle_exit(int keysym, t_game *game)
     return (0);
 }
 
-
-void    ft_printmap(char **map)
+void    *ft_endgame(t_game *game)
 {
-    int i = 0;
-
-    while (map[i])
-    {
-        printf("%s\n", map[i]);
-        i++;  
-    }
-    return ;
+    mlx_destroy_window(game->ptr, game->win);
+    return (NULL);
 }
-
-void    ft_do_move(t_game *game, t_vector pos, char dir)
-{
-    game->map[pos.y][pos.x] = '0';
-    if (dir == 'D')
-    {
-        game->map[pos.y][pos.x + 1] = 'P';
-        printf("right\n");
-    }
-    else if (dir == 'A')
-    {
-        game->map[pos.y][pos.x - 1] = 'P';
-        printf("left\n");
-    }
-    else if (dir == 'W')
-    {
-        game->map[pos.y - 1][pos.x] = 'P';
-        printf("up\n");
-    }
-    else if (dir == 'S')
-    {
-        game->map[pos.y + 1][pos.x] = 'P';
-        printf("down\n");
-    }
-    else
-        return ;
-}
-
-
 
 int	handle_keypress(int keysym, t_game *game)
 {
@@ -63,33 +20,25 @@ int	handle_keypress(int keysym, t_game *game)
     pos = get_pos_player(game->map);
     if (keysym == XK_d || keysym == XK_D)
     {
-        if (can_i_move_right(game, pos.x, pos.y))
-            ft_do_move(game, pos, 'D');
-        else if (can_i_move_right(game, pos.x, pos.y) == 2)
-            game->map[pos.x][pos.y] = '0';
+        if (can_i_move_right(game, pos) == -1)
+            ft_endgame(game);
     }
     else    if (keysym == XK_W || keysym == XK_w)
     {
-        if (can_i_move_up(game, pos.x, pos.y))
-            ft_do_move(game, pos, 'W');
-        else if (can_i_move_up(game, pos.x, pos.y) == 2)
-            game->map[pos.x][pos.y] = '0';
+        if (can_i_move_up(game, pos) == -1)
+            ft_endgame(game);
     }
     else    if (keysym == XK_A || keysym == XK_a)
     {
-        if (can_i_move_left(game, pos.x, pos.y))
-            ft_do_move(game, pos, 'A');
-        if (can_i_move_left(game, pos.x, pos.y) == 2)
-            game->map[pos.x][pos.y] = 'C';
+        if (can_i_move_left(game, pos) == -1)
+            ft_endgame(game);
     }
     else    if (keysym == XK_S || keysym == XK_s)
     {
-        if (can_i_move_down(game, pos.x, pos.y))
-            ft_do_move(game, pos, 'S');
-        if (can_i_move_down(game, pos.x, pos.y) == 2)
-            game->map[pos.x][pos.y] = '0';
+        if (can_i_move_down(game, pos) == -1)
+            ft_endgame(game);
     }
-    display_game(game);
+    display_game(game, game->type);
 	return (0);
 }
 void    *solong(t_game game)
@@ -97,19 +46,13 @@ void    *solong(t_game game)
     game.collectible = ft_mapcheck(game.map);
     if (!game.collectible)
         return (NULL);
-    int i = 0;
-    while (game.map[i])
-    {
-        printf("%s\n", game.map[i]);
-        i++;
-    }
-
-    game.x = ((int)ft_strlen(game.map[0])) * 64;
-    game.y = ((int)ft_splitsize(game.map)) * 64;
+    game.type = 0;
+    game.x = ((int)ft_strlen(game.map[0])) * res;
+    game.y = ((int)ft_splitsize(game.map)) * res;
     game.ptr = mlx_init();
     game.win = mlx_new_window(game.ptr, game.x, game.y, "so_long_test");
 
-    display_game(&game);
+    display_game(&game, game.type);
     mlx_hook(game.win, KeyPress, KeyPressMask, &handle_keypress, &game);
     mlx_key_hook(game.win, &handle_exit, &game);
     mlx_loop(game.ptr);
