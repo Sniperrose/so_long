@@ -13,6 +13,16 @@ void    *ft_endgame(t_game *game)
     return (NULL);
 }
 
+void ft_printmap(char **map)
+{
+    int i = 0;
+    while (map[i])
+    {   
+        printf("%s\n", map[i]);
+        i++;    
+    }
+}
+
 int	handle_keypress(int keysym, t_game *game)
 {
     t_vector pos;
@@ -38,6 +48,8 @@ int	handle_keypress(int keysym, t_game *game)
         if (can_i_move_down(game, pos) == -1)
             ft_endgame(game);
     }
+    ft_printmap(game->map);
+    printf("collectible: %d\n", game->collectible);
     display_game(game, game->type);
 	return (0);
 }

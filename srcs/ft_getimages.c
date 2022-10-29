@@ -47,7 +47,9 @@ t_icon	ft_readimgs(void *ptr, int i)
 	else if (i == 1)
 		show.player = ft_new_sprite(ptr, "imgs/P_L.xpm");
 	else if (i == 2)
-		show.player = ft_new_sprite(ptr, "imgs/1.xpm");
+		show.player = ft_new_sprite(ptr, "imgs/DD.xpm");
+	else if (i == 3)
+		show.player = ft_new_sprite(ptr, "imgs/DA.xpm");
 	return (show);
 }
 
