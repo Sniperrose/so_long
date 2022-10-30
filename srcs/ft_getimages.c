@@ -42,6 +42,9 @@ t_icon	ft_readimgs(void *ptr, int i)
 	show.exit = ft_new_sprite(ptr, "imgs/E.xpm");
 	show.space = ft_new_sprite(ptr, "imgs/0.xpm");
 	show.wall = ft_new_sprite(ptr, "imgs/1.xpm");
+	show.end1 = ft_new_sprite(ptr, "imgs/end1.xpm");
+	show.end2 = ft_new_sprite(ptr, "imgs/end2.xpm");
+	show.end3 = ft_new_sprite(ptr, "imgs/end3.xpm");
 	if (i == 0 || i == 30)
 		show.player = ft_new_sprite(ptr, "imgs/30.xpm");
 	else if (i == 10)
@@ -75,6 +78,12 @@ void	*put_img(t_icon show, char c)
 		return (show.exit.pointer);
 	else if (c == '0')
 		return (show.space.pointer);
+	else if (c == 'e')
+		return (show.end1.pointer);
+	else if (c == 'n')
+		return (show.end2.pointer);
+	else if (c == 'd')
+		return (show.end3.pointer);
 	return (NULL);
 }
 

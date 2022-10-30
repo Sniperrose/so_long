@@ -35,7 +35,10 @@ int	main(int ac, char **av)
 	mlx.map = ft_readmap(fd);
 	if (!mlx.map)
 		return (ft_end_error(fd));
-	solong(mlx);
+	if (!solong(mlx))
+	{
+		printf ("end game\n");
+	}
 	ft_free(mlx.map, ft_splitsize(mlx.map));
 	close (fd);
 	return (0);

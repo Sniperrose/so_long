@@ -1,6 +1,7 @@
 SRCS_DIR = ./srcs/
 SRCS =	ft_getmap.c\
 		ft_mapchek.c\
+		ft_validpath.c\
 		ft_split2.c\
 		solong.c\
 		ft_getimages.c\

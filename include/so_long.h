@@ -36,6 +36,9 @@ typedef struct s_icon
     t_image coll;
     t_image exit;
     t_image player;
+    t_image end1;
+    t_image end2;
+    t_image end3;
 }              t_icon;
 
 typedef struct s_game
@@ -61,6 +64,7 @@ char	*get_next_line(int fd);
 char    **ft_readmap(int fd);
 int ft_error(char *str);
 size_t	ft_splitsize(char **str);
+int ft_validpath(char **map, int col);
 
 t_image	ft_new_sprite(void *ptr, char *path);
 t_vector get_pos_player(char **map);
@@ -71,6 +75,7 @@ int can_i_move_left(t_game *game, t_vector pos);
 int can_i_move_up(t_game *game, t_vector pos);
 int can_i_move_down(t_game *game, t_vector pos);
 
+void	*put_img(t_icon show, char c);
 void    *solong(t_game mlx);
 void    *ft_drawgame(t_game game, char **map);
 void    *display_game(t_game    *game, int i);
@@ -80,12 +85,5 @@ void    ft_bzero(int *nbr, int size);
 int ft_mapcheck(char **map);
 int ft_wallcheck(char **map, int i, size_t x);
 int ft_comptcheck(char **map, int i, int j);
-
-
-
-// int ft_solong(char **map);
-// void    ft_test();
-// void    *ft_image();
-// void    *ft_sosoolong(char **map);
 
 #endif
