@@ -6,7 +6,7 @@
 /*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 16:40:45 by galtange          #+#    #+#             */
-/*   Updated: 2022/10/30 16:47:30 by galtange         ###   ########.fr       */
+/*   Updated: 2022/10/30 21:56:42 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	ft_up_d(t_game *game, int x, int y)
 		game->map[y][x] = 'E';
 		game->type = 10;
 	}
-	ft_putstr_fd("up\n", 1);
+	ft_putstr_fd(ft_itoa(game->moves++), 1);
+	ft_putstr_fd("\n", 1);
 	return (0);
 }
 
@@ -58,7 +59,8 @@ int	can_i_move_up(t_game *game, t_vector pos)
 		else
 			game->map[pos.y - 1][pos.x] = 'D';
 		game->type = 11;
-		ft_putstr_fd("up\n", 1);
+		ft_putstr_fd(ft_itoa(game->moves++), 1);
+		ft_putstr_fd("\n", 1);
 	}
 	return (0);
 }
@@ -83,7 +85,8 @@ int	ft_down_d(t_game *game, int x, int y)
 		game->map[y][x] = 'E';
 		game->type = 30;
 	}
-	ft_putstr_fd("down\n", 1);
+	ft_putstr_fd(ft_itoa(game->moves++), 1);
+	ft_putstr_fd("\n", 1);
 	return (0);
 }
 
@@ -109,7 +112,8 @@ int	can_i_move_down(t_game *game, t_vector pos)
 		else
 			game->map[pos.y + 1][pos.x] = 'D';
 		game->type = 31;
-		ft_putstr_fd("down\n", 1);
+		ft_putstr_fd(ft_itoa(game->moves++), 1);
+		ft_putstr_fd("\n", 1);
 	}
 	return (0);
 }
