@@ -42,14 +42,22 @@ t_icon	ft_readimgs(void *ptr, int i)
 	show.exit = ft_new_sprite(ptr, "imgs/E.xpm");
 	show.space = ft_new_sprite(ptr, "imgs/0.xpm");
 	show.wall = ft_new_sprite(ptr, "imgs/1.xpm");
-	if (i == 0)
-		show.player = ft_new_sprite(ptr, "imgs/P.xpm");
-	else if (i == 1)
-		show.player = ft_new_sprite(ptr, "imgs/P_L.xpm");
-	else if (i == 2)
-		show.player = ft_new_sprite(ptr, "imgs/DD.xpm");
-	else if (i == 3)
-		show.player = ft_new_sprite(ptr, "imgs/DA.xpm");
+	if (i == 0 || i == 30)
+		show.player = ft_new_sprite(ptr, "imgs/30.xpm");
+	else if (i == 10)
+		show.player = ft_new_sprite(ptr, "imgs/10.xpm");
+	else if (i == 11)
+		show.player = ft_new_sprite(ptr, "imgs/11.xpm");
+	else if (i == 20)
+		show.player = ft_new_sprite(ptr, "imgs/20.xpm");
+	else if (i == 21)
+		show.player = ft_new_sprite(ptr, "imgs/21.xpm");
+	else if (i == 31)
+		show.player = ft_new_sprite(ptr, "imgs/31.xpm");
+	else if (i == 40)
+		show.player = ft_new_sprite(ptr, "imgs/40.xpm");
+	else if (i == 41)
+		show.player = ft_new_sprite(ptr, "imgs/41.xpm");
 	return (show);
 }
 

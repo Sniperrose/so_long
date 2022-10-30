@@ -48,7 +48,7 @@ int	handle_keypress(int keysym, t_game *game)
         if (can_i_move_down(game, pos) == -1)
             ft_endgame(game);
     }
-    ft_printmap(game->map);
+    // ft_printmap(game->map);
     printf("collectible: %d\n", game->collectible);
     display_game(game, game->type);
 	return (0);

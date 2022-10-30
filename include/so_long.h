@@ -65,7 +65,7 @@ size_t	ft_splitsize(char **str);
 t_image	ft_new_sprite(void *ptr, char *path);
 t_vector get_pos_player(char **map);
 
-void    ft_do_move(t_game *game, t_vector pos, char dir);
+int    ft_do_move(t_game *game, t_vector pos, char dir);
 int can_i_move_right(t_game *game, t_vector pos);
 int can_i_move_left(t_game *game, t_vector pos);
 int can_i_move_up(t_game *game, t_vector pos);
