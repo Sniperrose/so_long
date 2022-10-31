@@ -68,7 +68,7 @@ int	ft_comptcheck(char **map, int i, int j)
 		}
 		i++;
 	}
-	if (comp[0] == 0 || comp[1] == 0 || comp[2] != 1)
+	if (comp[0] == 0 || comp[1] != 1 || comp[2] != 1)
 		return (0);
 	return (comp[0]);
 }
@@ -91,6 +91,6 @@ int	ft_mapcheck(char **map)
 		return (ft_error("Error: Map must be closed by walls!\n"));
 	cntr = ft_comptcheck(map, 0, 0);
 	if (cntr == 0)
-		return (ft_error("Error: Not valid compt!\n"));
+		return (ft_error("Error: Not valid map!\n"));
 	return (cntr);
 }

@@ -23,7 +23,7 @@ MLX_PATH = ${MLX_DIR}/libmlx.a
 
 # /* ~~~~~~~ COMPILING INFO ~~~~~~~ */
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -g # -MMD
+CFLAGS = -Wall -Werror -Wextra -g
 MFLAGS = -ldl -lmlx -L${MLX_DIR} -lm -lXext -lX11 -Imlx $(MLX_PATH)
 IFLAGS:= -I ./includes
 LFLAGS:= -L $(LIBFT_DIR) -lft

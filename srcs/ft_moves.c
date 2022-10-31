@@ -12,6 +12,28 @@
 
 #include "../include/so_long.h"
 
+t_image	ft_new_image(void *ptr, int width, int height)
+{
+	t_image	img;
+
+	img.pointer = mlx_new_image(ptr, width, height);
+	img.size.x = width;
+	img.size.y = height;
+	img.pixels = mlx_get_data_addr(img.pointer, &img.bits_pp,
+			&img.line_size, &img.endian);
+	return (img);
+}
+
+t_image	ft_new_sprite(void *ptr, char *path)
+{
+	t_image	img;
+
+	img.pointer = mlx_xpm_file_to_image(ptr, path, &img.size.x, &img.size.y);
+	img.pixels = mlx_get_data_addr(img.pointer, &img.bits_pp,
+			&img.line_size, &img.endian);
+	return (img);
+}
+
 t_vector	get_pos_player(char **map)
 {
 	t_vector	pos;
@@ -43,7 +65,7 @@ int	ft_do_move(t_game *game, t_vector pos, char dir)
 		game->map[pos.y - 1][pos.x] = 'P';
 	else if (dir == 'S')
 		game->map[pos.y + 1][pos.x] = 'P';
-	ft_putstr_fd(ft_itoa(game->moves++), 1);
+	ft_putnbr_fd(game->moves++, 1);
 	ft_putstr_fd("\n", 1);
 	return (1);
 }

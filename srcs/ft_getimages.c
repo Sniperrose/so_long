@@ -12,29 +12,7 @@
 
 #include "../include/so_long.h"
 
-t_image	ft_new_image(void *ptr, int width, int height)
-{
-	t_image	img;
-
-	img.pointer = mlx_new_image(ptr, width, height);
-	img.size.x = width;
-	img.size.y = height;
-	img.pixels = mlx_get_data_addr(img.pointer, &img.bits_pp,
-			&img.line_size, &img.endian);
-	return (img);
-}
-
-t_image	ft_new_sprite(void *ptr, char *path)
-{
-	t_image	img;
-
-	img.pointer = mlx_xpm_file_to_image(ptr, path, &img.size.x, &img.size.y);
-	img.pixels = mlx_get_data_addr(img.pointer, &img.bits_pp,
-			&img.line_size, &img.endian);
-	return (img);
-}
-
-t_icon	ft_readimgs(void *ptr, int i)
+t_icon	ft_readimgs(void *ptr)
 {
 	t_icon	show;
 
@@ -42,58 +20,76 @@ t_icon	ft_readimgs(void *ptr, int i)
 	show.exit = ft_new_sprite(ptr, "imgs/E.xpm");
 	show.space = ft_new_sprite(ptr, "imgs/0.xpm");
 	show.wall = ft_new_sprite(ptr, "imgs/1.xpm");
-	show.end1 = ft_new_sprite(ptr, "imgs/end1.xpm");
-	show.end2 = ft_new_sprite(ptr, "imgs/end2.xpm");
-	show.end3 = ft_new_sprite(ptr, "imgs/end3.xpm");
-	show.player = ft_new_sprite(ptr, "imgs/30.xpm");
-	if (i == 10)
-		show.player = ft_new_sprite(ptr, "imgs/10.xpm");
-	else if (i == 11)
-		show.player = ft_new_sprite(ptr, "imgs/11.xpm");
-	else if (i == 20)
-		show.player = ft_new_sprite(ptr, "imgs/20.xpm");
-	else if (i == 21)
-		show.player = ft_new_sprite(ptr, "imgs/21.xpm");
-	else if (i == 31)
-		show.player = ft_new_sprite(ptr, "imgs/31.xpm");
-	else if (i == 40)
-		show.player = ft_new_sprite(ptr, "imgs/40.xpm");
-	else if (i == 41)
-		show.player = ft_new_sprite(ptr, "imgs/41.xpm");
+	show.player10 = ft_new_sprite(ptr, "imgs/10.xpm");
+	show.player11 = ft_new_sprite(ptr, "imgs/11.xpm");
+	show.player20 = ft_new_sprite(ptr, "imgs/20.xpm");
+	show.player21 = ft_new_sprite(ptr, "imgs/21.xpm");
+	show.player30 = ft_new_sprite(ptr, "imgs/30.xpm");
+	show.player31 = ft_new_sprite(ptr, "imgs/31.xpm");
+	show.player40 = ft_new_sprite(ptr, "imgs/40.xpm");
+	show.player41 = ft_new_sprite(ptr, "imgs/41.xpm");
 	return (show);
 }
 
+int	ft_getimgs(t_game *game)
+{
+	game->imgs = ft_readimgs(game->ptr);
+	if (!game->imgs.coll.pointer || !game->imgs.exit.pointer)
+		return (0);
+	else if (!game->imgs.space.pointer || !game->imgs.wall.pointer)
+		return (0);
+	else if (!game->imgs.player10.pointer || !game->imgs.player11.pointer)
+		return (0);
+	else if (!game->imgs.player20.pointer || !game->imgs.player21.pointer)
+		return (0);
+	else if (!game->imgs.player30.pointer || !game->imgs.player31.pointer)
+		return (0);
+	else if (!game->imgs.player40.pointer || !game->imgs.player41.pointer)
+		return (0);
+	return (1);
+}
 void	*put_img(t_icon show, char c)
 {
 	if (c == '1')
 		return (show.wall.pointer);
 	else if (c == 'C')
 		return (show.coll.pointer);
-	else if (c == 'P')
-		return (show.player.pointer);
-	else if (c == 'D')
-		return (show.player.pointer);
 	else if (c == 'E')
 		return (show.exit.pointer);
 	else if (c == '0')
 		return (show.space.pointer);
-	else if (c == 'e')
-		return (show.end1.pointer);
-	else if (c == 'n')
-		return (show.end2.pointer);
-	else if (c == 'd')
-		return (show.end3.pointer);
+	return (NULL);
+}
+
+void	*put_player(t_icon show, int type)
+{
+	int	i = type;
+
+	if (i == 10)
+		return (show.player10.pointer);
+	else if (i == 11)
+		return (show.player11.pointer);
+	else if (i == 20)
+		return (show.player20.pointer);
+	else if (i == 21)
+		return (show.player21.pointer);
+	else if (i == 30 || i == 0)
+		return (show.player30.pointer);
+	else if (i == 31)
+		return (show.player31.pointer);
+	else if (i == 40)
+		return (show.player40.pointer);
+	else if (i == 41)
+		return (show.player41.pointer);
 	return (NULL);
 }
 
 void	*display_game(t_game *game, int type)
 {
-	t_icon		show;
 	t_vector	m;
 	t_vector	d;
 	char		c;
 
-	show = ft_readimgs(game->ptr, type);
 	m.x = 0;
 	d.x = 0;
 	d.y = 0;
@@ -103,8 +99,10 @@ void	*display_game(t_game *game, int type)
 		while (game->map[m.x][m.y] != '\0')
 		{
 			c = game->map[m.x][m.y];
-			mlx_put_image_to_window(game->ptr, game->win,
-				put_img(show, c), d.x, d.y);
+			if (c == 'P' || c == 'D')
+				mlx_put_image_to_window(game->ptr, game->win, put_player(game->imgs, type), d.x, d.y);
+			else
+				mlx_put_image_to_window(game->ptr, game->win, put_img(game->imgs, c), d.x, d.y);
 			d.x += res;
 			m.y++;
 		}

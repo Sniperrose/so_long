@@ -35,10 +35,14 @@ typedef struct s_icon
     t_image space;
     t_image coll;
     t_image exit;
-    t_image player;
-    t_image end1;
-    t_image end2;
-    t_image end3;
+    t_image player10;
+    t_image player11;
+    t_image player20;
+    t_image player21;
+    t_image player30;
+    t_image player31;
+    t_image player40;
+    t_image player41;
 }              t_icon;
 
 typedef struct s_game
@@ -51,6 +55,7 @@ typedef struct s_game
     int     collectible;
     int     type;
     int     moves;
+    t_icon  imgs;
 }              t_game;
 
 int main(int ac, char **av);
@@ -59,6 +64,8 @@ size_t	ft_strlen(const char *c);
 void	ft_putstr_fd(char *s, int fd);
 char    *ft_strjoin(char *all, char const *argv);
 size_t	ft_count(const char *all, char sep);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_substr2(char const *s, unsigned int start, size_t len);
 void	ft_split2(char **result, char const *all, char sep, size_t size);
 void	ft_free(char **ptr, size_t line);
 char	*get_next_line(int fd);
@@ -68,13 +75,18 @@ size_t	ft_splitsize(char **str);
 int ft_validpath(char **map, int col);
 
 
+t_image	ft_new_image(void *ptr, int width, int height);
+t_image	ft_new_sprite(void *ptr, char *path);
+void	ft_putnbr_fd(int n, int fd);
+int	ft_getimgs(t_game *game);
+t_icon	ft_readimgs(void *ptr);
 t_image	ft_new_sprite(void *ptr, char *path);
 t_vector get_pos_player(char **map);
 
 char	*ft_itoa(int nb);
 int    ft_do_move(t_game *game, t_vector pos, char dir);
 int can_i_move_right(t_game *game, t_vector pos);
-int can_i_move_left(t_game *game, t_vector pos);
+int	can_i_move_left(t_game *game, t_vector pos);
 int can_i_move_up(t_game *game, t_vector pos);
 int can_i_move_down(t_game *game, t_vector pos);
 
