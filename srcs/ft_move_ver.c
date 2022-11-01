@@ -21,11 +21,6 @@ int	ft_up_d(t_game *game, int x, int y)
 		game->map[y - 1][x] = 'P';
 		game->type = 10;
 	}
-	else if (game->map[y - 1][x] == 'E' && game->collectible != 0)
-	{
-		game->map[y - 1][x] = 'D';
-		game->type = 11;
-	}
 	else if (game->map[y - 1][x] == '0')
 	{
 		game->map[y - 1][x] = 'P';
@@ -73,11 +68,6 @@ int	ft_down_d(t_game *game, int x, int y)
 		game->collectible -= 1;
 		game->map[y + 1][x] = 'P';
 		game->type = 30;
-	}
-	if (game->map[y + 1][x] == 'E' && game->collectible != 0)
-	{
-		game->map[y + 1][x] = 'D';
-		game->type = 31;
 	}
 	else if (game->map[y + 1][x] == '0')
 	{

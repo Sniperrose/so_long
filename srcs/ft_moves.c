@@ -12,28 +12,6 @@
 
 #include "../include/so_long.h"
 
-t_image	ft_new_image(void *ptr, int width, int height)
-{
-	t_image	img;
-
-	img.pointer = mlx_new_image(ptr, width, height);
-	img.size.x = width;
-	img.size.y = height;
-	img.pixels = mlx_get_data_addr(img.pointer, &img.bits_pp,
-			&img.line_size, &img.endian);
-	return (img);
-}
-
-t_image	ft_new_sprite(void *ptr, char *path)
-{
-	t_image	img;
-
-	img.pointer = mlx_xpm_file_to_image(ptr, path, &img.size.x, &img.size.y);
-	img.pixels = mlx_get_data_addr(img.pointer, &img.bits_pp,
-			&img.line_size, &img.endian);
-	return (img);
-}
-
 t_vector	get_pos_player(char **map)
 {
 	t_vector	pos;

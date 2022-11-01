@@ -6,7 +6,7 @@
 /*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:55:06 by galtange          #+#    #+#             */
-/*   Updated: 2022/10/24 18:01:08 by galtange         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:58:58 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	ft_mapcheck(char **map)
 	if (!ft_wallcheck(map, y - 1, x - 1))
 		return (ft_error("Error: Map must be closed by walls!\n"));
 	cntr = ft_comptcheck(map, 0, 0);
+	if (!ft_validp(map, ft_splitsize(map)))
+		return (ft_error("Error: Valid path not found!\n"));
 	if (cntr == 0)
 		return (ft_error("Error: Not valid map!\n"));
 	return (cntr);

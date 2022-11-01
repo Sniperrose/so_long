@@ -21,11 +21,6 @@ int	ft_left_d(t_game *game, int x, int y)
 		game->map[y][x - 1] = 'P';
 		game->type = 40;
 	}
-	else if (game->map[y][x - 1] == 'E' && game->collectible != 0)
-	{
-		game->map[y][x - 1] = 'D';
-		game->type = 41;
-	}
 	else if (game->map[y][x - 1] == '0')
 	{
 		game->map[y][x - 1] = 'P';
@@ -73,11 +68,6 @@ int	ft_right_d(t_game *game, int x, int y)
 		game->collectible -= 1;
 		game->map[y][x + 1] = 'P';
 		game->type = 20;
-	}
-	if (game->map[y][x + 1] == 'E' && game->collectible != 0)
-	{
-		game->map[y][x + 1] = 'D';
-		game->type = 21;
 	}
 	else if (game->map[y][x + 1] == '0')
 	{

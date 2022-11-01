@@ -6,7 +6,7 @@
 /*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:53:31 by galtange          #+#    #+#             */
-/*   Updated: 2022/10/27 16:04:56 by galtange         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:47:15 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_getimgs(t_game *game)
 		return (0);
 	return (1);
 }
+
 void	*put_img(t_icon show, char c)
 {
 	if (c == '1')
@@ -61,10 +62,8 @@ void	*put_img(t_icon show, char c)
 	return (NULL);
 }
 
-void	*put_player(t_icon show, int type)
+void	*put_player(t_icon show, int i)
 {
-	int	i = type;
-
 	if (i == 10)
 		return (show.player10.pointer);
 	else if (i == 11)
@@ -79,7 +78,7 @@ void	*put_player(t_icon show, int type)
 		return (show.player31.pointer);
 	else if (i == 40)
 		return (show.player40.pointer);
-	else if (i == 41)
+	else
 		return (show.player41.pointer);
 	return (NULL);
 }
@@ -88,7 +87,6 @@ void	*display_game(t_game *game, int type)
 {
 	t_vector	m;
 	t_vector	d;
-	char		c;
 
 	m.x = 0;
 	d.x = 0;
@@ -98,16 +96,17 @@ void	*display_game(t_game *game, int type)
 		m.y = 0;
 		while (game->map[m.x][m.y] != '\0')
 		{
-			c = game->map[m.x][m.y];
-			if (c == 'P' || c == 'D')
-				mlx_put_image_to_window(game->ptr, game->win, put_player(game->imgs, type), d.x, d.y);
+			if (game->map[m.x][m.y] == 'P' || game->map[m.x][m.y] == 'D')
+				mlx_put_image_to_window(game->ptr, game->win,
+					put_player(game->imgs, type), d.x, d.y);
 			else
-				mlx_put_image_to_window(game->ptr, game->win, put_img(game->imgs, c), d.x, d.y);
-			d.x += res;
+				mlx_put_image_to_window(game->ptr, game->win,
+					put_img(game->imgs, game->map[m.x][m.y]), d.x, d.y);
+			d.x += RES;
 			m.y++;
 		}
 		d.x = 0;
-		d.y += res;
+		d.y += RES;
 		m.x++;
 	}
 	return (game->ptr);
