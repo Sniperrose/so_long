@@ -30,8 +30,7 @@ int	main(int ac, char **av)
 	if (!game.map)
 		return (ft_end_error(fd, &game));
 	solong(game);
-	// ft_free(game.map, ft_splitsize(game.map));
-	ft_endgame(&game, "game end\n");
+	ft_free(game.map, ft_splitsize(game.map));
 	close (fd);
 	return (0);
 }

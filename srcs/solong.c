@@ -15,30 +15,17 @@
 int	ft_endgame(t_game *game, char *str)
 {
 	ft_free(game->map, ft_splitsize(game->map));
-	mlx_destroy_image(game->ptr, game->imgs.coll.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.exit.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player10.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player11.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player20.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player21.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player30.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player31.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player40.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.player41.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.space.pointer);
-	mlx_destroy_image(game->ptr,game->imgs.wall.pointer);
-	mlx_destroy_window(game->ptr, game->win);
-	mlx_destroy_display(game->ptr);
+	ft_freeimgs(game);
+	mlx_destroy_window (game->ptr, game->win);
+	mlx_destroy_display (game->ptr);
 	free(game->ptr);
 	ft_putstr_fd(str, 1);
 	return (0);
 }
 
-int	handle_key(int status, t_game *game)
+int	handle_key(t_game *game)
 {
-	(void) status;
-	mlx_destroy_window(game->ptr, game->win);
-	return (0);
+	exit (ft_endgame(game, "Exit: RED CROSS\n"));
 }
 
 void	*ft_won(t_game *game)
@@ -79,14 +66,14 @@ int	handle_keypress(int keysym, t_game *game)
 		exit (ft_endgame(game, "Exit: ESC\n"));
 	if (i == -1)
 	{
-		sleep(1);
+		usleep(1000);
 		exit (ft_endgame(game, "Exit: Game end ^.^\n"));
 	}
 	display_game(game, game->type);
 	return (0);
 }
 
-void	*solong(t_game game)
+int	solong(t_game game)
 {
 	game.collectible = ft_mapcheck(game.map);
 	if (!game.collectible || !ft_check_imgpaths())
@@ -107,5 +94,5 @@ void	*solong(t_game game)
 	mlx_hook(game.win, KeyPress, KeyPressMask, &handle_keypress, &game);
 	mlx_hook(game.win, 17, 1L << 19, &handle_key, &game);
 	mlx_loop(game.ptr);
-	return (game.ptr);
+	return (1);
 }

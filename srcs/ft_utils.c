@@ -20,6 +20,23 @@ t_image	ft_new_sprite(void *ptr, char *path)
 	return (img);
 }
 
+int	ft_freeimgs(t_game *game)
+{
+	mlx_destroy_image (game->ptr, game->imgs.coll.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.exit.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player10.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player11.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player20.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player21.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player30.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player31.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player40.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.player41.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.space.pointer);
+	mlx_destroy_image (game->ptr, game->imgs.wall.pointer);
+	return (0);
+}
+
 int	ft_check_imgpaths(void)
 {
 	int	fd[13];
@@ -51,7 +68,7 @@ int	ft_end_error(int fd, t_game *g)
 {
 	if (g->map)
 		ft_free(g->map, ft_splitsize(g->map));
-	ft_putstr_fd("Error\n", 1);
+	ft_putstr_fd("Error: Cant read the map!\n", 1);
 	close (fd);
 	return (0);
 }

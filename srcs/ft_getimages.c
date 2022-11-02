@@ -35,7 +35,7 @@ int	ft_getimgs(t_game *game)
 {
 	game->imgs = ft_readimgs(game->ptr);
 	if (!game->imgs.coll.pointer || !game->imgs.exit.pointer)
-		return (0);
+		return (ft_freeimgs(game));
 	else if (!game->imgs.space.pointer || !game->imgs.wall.pointer)
 		return (0);
 	else if (!game->imgs.player10.pointer || !game->imgs.player11.pointer)
