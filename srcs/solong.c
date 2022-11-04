@@ -89,7 +89,7 @@ int	solong(t_game game)
 	if (!game.win)
 		return (0);
 	if (!ft_getimgs(&game))
-		return (0);
+		exit (ft_endgame(&game, "Exit: Cant read the images\n"));
 	display_game(&game, game.type);
 	mlx_hook(game.win, KeyPress, KeyPressMask, &handle_keypress, &game);
 	mlx_hook(game.win, 17, 1L << 19, &handle_key, &game);

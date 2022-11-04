@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	else if (ac != 2)
 		return (ft_error("Error: this project accept only 2args!\n"));
 	if (!ft_extmap(av[1]))
-		return (ft_error("Error: Choose the valid path or map!\n"));
+		return (ft_error("Error: Wrong path or not .ber map!\n"));
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		return (0);
