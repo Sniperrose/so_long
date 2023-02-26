@@ -75,6 +75,8 @@ void	ft_free(char **str, size_t line)
 {
 	size_t	i;
 
+	if (!str || !*str)
+		return ;
 	i = 0;
 	while (str[i] != NULL && i < line)
 	{

@@ -50,14 +50,15 @@ int	can_i_move_up(t_game *game, t_vector pos)
 	{
 		game->map[pos.y][pos.x] = '0';
 		if (game->collectible == 0)
-			return (-1);
+			return (ft_do_end(game, pos, 'W'));
 		else
 			game->map[pos.y - 1][pos.x] = 'D';
 		game->type = 11;
 		ft_putnbr_fd(game->moves++, 1);
 		ft_putstr_fd("\n", 1);
+		return (0);
 	}
-	return (0);
+	return (ft_do_die(game, pos, 'W'));
 }
 
 int	ft_down_d(t_game *game, int x, int y)
@@ -98,12 +99,13 @@ int	can_i_move_down(t_game *game, t_vector pos)
 	{
 		game->map[pos.y][pos.x] = '0';
 		if (game->collectible == 0)
-			return (-1);
+			return (ft_do_end(game, pos, 'S'));
 		else
 			game->map[pos.y + 1][pos.x] = 'D';
 		game->type = 31;
 		ft_putnbr_fd(game->moves++, 1);
 		ft_putstr_fd("\n", 1);
+		return (0);
 	}
-	return (0);
+	return (ft_do_die(game, pos, 'S'));
 }

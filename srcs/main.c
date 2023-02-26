@@ -25,12 +25,12 @@ int	main(int ac, char **av)
 		return (ft_error("Error: Wrong path or not .ber map!\n"));
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		return (0);
+		return (ft_error("Error: map file not found\n"));
 	game.map = ft_readmap(fd);
 	if (!game.map)
 		return (ft_end_error(fd, &game));
+	close (fd);
 	solong(game);
 	ft_free(game.map, ft_splitsize(game.map));
-	close (fd);
 	return (0);
 }

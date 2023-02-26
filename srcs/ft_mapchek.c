@@ -62,7 +62,7 @@ int	ft_comptcheck(char **map, int i, int j)
 				comp[1] += 1;
 			else if (map[i][j] == 'P')
 				comp[2] += 1;
-			else if (map[i][j] != '0' && map[i][j] != '1')
+			else if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'T')
 				return (0);
 			j++;
 		}

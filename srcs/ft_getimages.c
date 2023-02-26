@@ -28,6 +28,10 @@ t_icon	ft_readimgs(void *ptr)
 	show.player31 = ft_new_sprite(ptr, "imgs/31.xpm");
 	show.player40 = ft_new_sprite(ptr, "imgs/40.xpm");
 	show.player41 = ft_new_sprite(ptr, "imgs/41.xpm");
+	show.trap1 = ft_new_sprite(ptr, "imgs/T1.xpm");
+	show.trap2 = ft_new_sprite(ptr, "imgs/T.xpm");
+	show.died = ft_new_sprite(ptr, "imgs/DIED.xpm");
+	show.won = ft_new_sprite(ptr, "imgs/won.xpm");
 	return (show);
 }
 
@@ -46,6 +50,10 @@ int	ft_getimgs(t_game *game)
 		return (0);
 	else if (!game->imgs.player40.pointer || !game->imgs.player41.pointer)
 		return (0);
+	else if (!game->imgs.trap1.pointer || !game->imgs.trap2.pointer)
+		return (0);
+	else if (!game->imgs.won.pointer || !game->imgs.died.pointer)
+		return (0);
 	return (1);
 }
 
@@ -59,6 +67,12 @@ void	*put_img(t_icon show, char c)
 		return (show.exit.pointer);
 	else if (c == '0')
 		return (show.space.pointer);
+	else if (c == 'T')
+		return (show.trap1.pointer);
+	else if (c == 'X')
+		return (show.died.pointer);
+	else if (c == 'W')
+		return (show.won.pointer);
 	return (NULL);
 }
 

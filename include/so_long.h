@@ -51,7 +51,25 @@ typedef struct s_icon
 	t_image	player31;
 	t_image	player40;
 	t_image	player41;
+	t_image	trap1;
+	t_image	trap2;
+	t_image	died;
+	t_image	won;
 }		t_icon;
+
+typedef struct s_nbr
+{
+	t_image	n0;
+	t_image	n1;
+	t_image	n2;
+	t_image	n3;
+	t_image	n4;
+	t_image	n5;
+	t_image	n6;
+	t_image	n7;
+	t_image	n8;
+	t_image	n9;
+}		t_nbr;
 
 typedef struct s_game
 {
@@ -64,9 +82,11 @@ typedef struct s_game
 	int		type;
 	int		moves;
 	t_icon	imgs;
+	t_nbr	nbr;
 }		t_game;
 
 int			main(int ac, char **av);
+char		*ft_itoa(int nb);
 char		*ft_strdup(const char *s);
 size_t		ft_strlen(const char *c);
 void		ft_putstr_fd(char *s, int fd);
@@ -81,7 +101,7 @@ char		**ft_readmap(int fd);
 int			ft_error(char *str);
 int			ft_end_error(int fd, t_game *g);
 int			ft_extmap(char *str);
-int			ft_check_imgpaths(void);
+int			ft_check_imgpaths(int i);
 size_t		ft_splitsize(char **str);
 int			ft_validp(char **map, int size);
 t_image		ft_new_image(void *ptr, int width, int height);
@@ -89,11 +109,15 @@ t_image		ft_new_sprite(void *ptr, char *path);
 void		ft_putnbr_fd(int n, int fd);
 int			ft_getimgs(t_game *game);
 int			ft_freeimgs(t_game *game);
+int			ft_freeimgs2(t_game *game);
 t_icon		ft_readimgs(void *ptr);
 t_image		ft_new_sprite(void *ptr, char *path);
 t_vector	get_pos_player(char **map);
 int			ft_do_move(t_game *game, t_vector pos, char dir);
 int			can_i_move_right(t_game *game, t_vector pos);
+int			ft_do_die(t_game *game, t_vector pos, char dir);
+int			ft_find_player(char **map);
+int			ft_do_end(t_game *game, t_vector pos, char dir);
 int			can_i_move_left(t_game *game, t_vector pos);
 int			can_i_move_up(t_game *game, t_vector pos);
 int			can_i_move_down(t_game *game, t_vector pos);
@@ -105,4 +129,11 @@ int			ft_mapcheck(char **map);
 int			ft_wallcheck(char **map, int i, size_t x);
 int			ft_comptcheck(char **map, int i, int j);
 int			ft_endgame(t_game *game, char *str);
+int			ft_err(t_game *game, char *str);
+int			ft_win_err(t_game *game);
+int			ft_image_err(t_game *game);
+void		*display_moves(t_game *game, int moves);
+int			ft_getnbrs(t_game *game);
+int			ft_freenbrs(t_game *game);
+
 #endif

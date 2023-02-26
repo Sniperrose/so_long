@@ -67,7 +67,7 @@ char	**ft_readmap(int fd)
 	all = ft_joinall(fd);
 	if (!all)
 		return (NULL);
-	map = (char **)malloc((ft_count(all, '\n') + 1) * sizeof(char *));
+	map = (char **)malloc((ft_count(all, '\n') + 2) * sizeof(char *));
 	if (!map)
 	{
 		free(all);

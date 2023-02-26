@@ -47,3 +47,35 @@ int	ft_do_move(t_game *game, t_vector pos, char dir)
 	ft_putstr_fd("\n", 1);
 	return (1);
 }
+
+int	ft_do_die(t_game *game, t_vector pos, char dir)
+{
+	game->map[pos.y][pos.x] = '0';
+	if (dir == 'D')
+		game->map[pos.y][pos.x + 1] = 'X';
+	else if (dir == 'A')
+		game->map[pos.y][pos.x - 1] = 'X';
+	else if (dir == 'W')
+		game->map[pos.y - 1][pos.x] = 'X';
+	else if (dir == 'S')
+		game->map[pos.y + 1][pos.x] = 'X';
+	ft_putnbr_fd(game->moves++, 1);
+	ft_putstr_fd("\n", 1);
+	return (-2);
+}
+
+int	ft_do_end(t_game *game, t_vector pos, char dir)
+{
+	game->map[pos.y][pos.x] = '0';
+	if (dir == 'D')
+		game->map[pos.y][pos.x + 1] = 'W';
+	else if (dir == 'A')
+		game->map[pos.y][pos.x - 1] = 'W';
+	else if (dir == 'W')
+		game->map[pos.y - 1][pos.x] = 'W';
+	else if (dir == 'S')
+		game->map[pos.y + 1][pos.x] = 'W';
+	ft_putnbr_fd(game->moves++, 1);
+	ft_putstr_fd("\n", 1);
+	return (-2);
+}
